@@ -17,7 +17,7 @@ def getDiff(string):
         return color.get_text()
 
 profNames = [
-        'alchemy',          # 0
+        'first-aid',        # 0
         'blacksmithing',    # 1
         'engineering',      # 2
         'enchanting',       # 3
@@ -26,7 +26,7 @@ profNames = [
         'tailoring',        # 6
         'mining',           # 7
         'cooking',          # 8
-        'first-aid'         # 9
+        'alchemy'           # 9
 ]
 
 # Get list of spell IDs for all professions
@@ -43,12 +43,14 @@ for prof in profNames:
 # Scrape wowhead for remaining data
 i = 0
 for prof in profSpellList:
-    print("Getting " + profNames[i] + " spells...")
+    print("Getting %s spells... (%d out of %d professions)" % (profNames[i], i+1, len(profSpellList)))
+    print("----------------------------------------------------")
     profSpells = []
+    j = 0
     for spellID in prof:
 
         URL = 'https://tbc.wowhead.com/spell=' + spellID
-        print("Scraping " + URL)
+        print("Scraping %s (%d/%d)" % (URL, j+1, len(prof)))
 
         options = Options()
         options.headless = True
@@ -72,6 +74,7 @@ for prof in profSpellList:
         profSpells.append(spell) # Store in main spell list
 
         browser.quit()
+        j+=1
 
     i += 1
     spellDF = pd.DataFrame(profSpells, columns = ['spellID', 'spellName', 'orange', 'yellow', 'green', 'gray'])
