@@ -43,14 +43,13 @@ for prof in profNames:
 # Scrape wowhead for remaining data
 i = 0
 for prof in profSpellList:
-    print("Getting %s spells... (%d out of %d professions)" % (profNames[i], i+1, len(profSpellList)))
-    print("----------------------------------------------------")
+    print("* Getting %s spells... (%d out of %d professions)" % (profNames[i], i+1, len(profSpellList)))
+    print("-----------------------------------------------------------")
     profSpells = []
     j = 0
     for spellID in prof:
 
         URL = 'https://tbc.wowhead.com/spell=' + spellID
-        print("Scraping %s (%d/%d)" % (URL, j+1, len(prof)))
 
         options = Options()
         options.headless = True
@@ -70,14 +69,18 @@ for prof in profSpellList:
         green = getDiff("r3")
         gray = getDiff("r4")
 
-        spell.extend((spellID, spellName, orange, yellow, green, gray))
+        spell.extend((spellID, orange, yellow, green, gray, spellName))
         profSpells.append(spell) # Store in main spell list
+
+        print("Scraped %s \t(%d/%d)" % (URL, j+1, len(prof)))
 
         browser.quit()
         j+=1
 
-    i += 1
-    spellDF = pd.DataFrame(profSpells, columns = ['spellID', 'spellName', 'orange', 'yellow', 'green', 'gray'])
-    print(spellDF)
+        spellDF = pd.DataFrame(profSpells, columns = ['spellID', 'orange', 'yellow', 'green', 'gray', 'spellName'])
 
-    quit()
+    spellDF.to_csv('spells_csv/%s.csv' % (profNames[i]), header=True, index=False, sep='\t')
+    print("Exported %s.csv" % (profNames[i]))
+    i += 1
+
+print("Done")
