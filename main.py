@@ -79,6 +79,7 @@ for prof in profSpellList:
 
         spellDF = pd.DataFrame(profSpells, columns = ['spellID', 'orange', 'yellow', 'green', 'gray', 'spellName'])
 
+    # Export profession to CSV
     spellDF.to_csv('spells_csv/%s.csv' % (profNames[i]), header=True, index=False, sep='\t')
     print("Exported %s.csv" % (profNames[i]))
     i += 1
