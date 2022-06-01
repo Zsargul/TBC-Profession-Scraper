@@ -1,5 +1,7 @@
+import os
 import pandas as pd
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup as bs
 
@@ -53,7 +55,8 @@ for prof in profSpellList:
 
         options = Options()
         options.headless = True
-        browser = webdriver.Firefox(options=options)
+        s = Service(executable_path='geckodriver', log_path='/dev/null') # Prevent geckodriver logging
+        browser = webdriver.Firefox(options=options, service=s)
         browser.get(URL)
         html = browser.page_source
 
@@ -80,7 +83,7 @@ for prof in profSpellList:
         spellDF = pd.DataFrame(profSpells, columns = ['spellID', 'orange', 'yellow', 'green', 'gray', 'spellName'])
 
     # Export profession to CSV
-    spellDF.to_csv('spells_csv/%s.csv' % (profNames[i]), header=True, index=False, sep='\t')
+    spellDF.to_csv('spells-csv/%s.csv' % (profNames[i]), header=True, index=False, sep='\t')
     print("Exported %s.csv" % (profNames[i]))
     i += 1
 
