@@ -1,6 +1,7 @@
 # TBC-Profession-Scraper
 Python web-scraper for getting data about crafting difficulty regarding trade-skills from [tbc.wowhead.com](https://tbc.wowhead.com/), and exporting it to CSV. I
-made this as a supporting tool for a profession-related WoW add-on I am making.
+made this as a supporting tool for a profession-related WoW add-on I am making. This was heavily inspired by 
+[a script by Ravendwyr](https://github.com/Ravendwyr/TradeSkillInfo_DataMiner), one of the makers of the TradeSkillInfo Add-on.
 
 ## About
 The scraper uses Selenium with geckodriver and BeautifulSoup to visit [The Burning Crusade WoWhead](https://tbc.wowhead.com/), and iterate over
