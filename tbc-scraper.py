@@ -28,7 +28,8 @@ profNames = [
         'tailoring',        # 6
         'mining',           # 7
         'cooking',          # 8
-        'alchemy'           # 9
+        'alchemy',          # 9
+        'poisons'           # 10
 ]
 
 # Get list of spell IDs for all professions
